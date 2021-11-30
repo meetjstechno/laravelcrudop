@@ -22,7 +22,11 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('crudpage.login');
+        $data = array();
+        if (Session::has('loginId')) {
+            $data = User::where('id', '=', Session::get('loginId'))->first();
+        }
+        return view('crudpage.login', compact('data'));
     }
 
     public function registration()
@@ -181,8 +185,12 @@ class AuthController extends Controller
     public function edit($id)
     {
         //
+        $data = array();
+        if (Session::has('loginId')) {
+            $data = User::where('id', '=', Session::get('loginId'))->first();
+        }
         $user = Student::find($id);
-        return view('edit', compact('data'));
+        return view('edit', compact('user', 'data'));
     }
 
     /**

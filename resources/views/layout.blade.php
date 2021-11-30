@@ -83,14 +83,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">Register</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link">Welcome, <b>{{ $data -> name }}</b></a>
-                        </li>
-                        @else
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}">Logout</a>
                         </li>
+                        @else
+                        <li class="nav-item">
+                            <a class="nav-link">Welcome, <b>{{ $data -> name }}</b></a>
+                        </li>
+
                         @endguest
                     </ul>
                 </div>

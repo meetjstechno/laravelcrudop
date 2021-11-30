@@ -28,19 +28,19 @@
                     <form action="edit" method="POST" enctype="multipart/form-data">
                         @csrf
 
-                        <input type="hidden" name="id" value={{$data->id}} class="form-control">
+                        <input type="hidden" name="id" value={{$user->id}} class="form-control">
 
                         <div class="form-group mb-3">
                             <label for="">Student Name</label>
-                            <input type="text" name="name" value="{{$data->name}}" class="form-control">
+                            <input type="text" name="name" value="{{$user->name}}" class="form-control">
                         </div>
                         <div class="form-group mb-3">
                             <label for="">Student Email</label>
-                            <input type="text" name="email" value="{{$data->email}}" class="form-control">
+                            <input type="text" name="email" value="{{$user->email}}" class="form-control">
                         </div>
                         <div class="form-group mb-3">
                             <label>Course:</label>
-                            <select name="course" id="course" value="{{$data->course}}"
+                            <select name="course" id="course" value="{{$user->course}}"
                                 class=" form-control col-sm-12 @error('course') is-invalid @enderror" required>
                                 <option value="Computer">Computer</option>
                                 <option value="Mechanical">Mechanical</option>
@@ -51,7 +51,7 @@
                         <div class="form-group mb-3">
                             <label for="">Student Profile Image</label>
                             <input type="file" name="profile_image" class="form-control">
-                            <img src="{{ asset('uploads/students/'.$data->profile_image) }}" width="70px" height="70px"
+                            <img src="{{ asset('uploads/students/'.$user->profile_image) }}" width="70px" height="70px"
                                 alt="Image">
                         </div>
                         <div class="form-group mb-3">
