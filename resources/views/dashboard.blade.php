@@ -1,4 +1,4 @@
-@extends('layout2')
+@extends('layout')
 
 @section('content')
 <main class="table-form">
@@ -74,7 +74,7 @@
                             </div>
 
                             <button type="submit" class="col-sm-3 btn btn-primary"
-                                style="margin-left: 450px;">Save</button>
+                                style="margin-left: 350px;">Save</button>
                         </form>
                     </div>
                 </div>

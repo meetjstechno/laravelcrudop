@@ -117,7 +117,7 @@ class AuthController extends Controller
      */
     public function create()
     {
-        return view('crudpage.dashboard');
+        return view('dashboard');
     }
 
     /**
@@ -128,6 +128,11 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'  => 'required',
+            'email' => 'required|email|unique:users,email',
+            'course' => 'required',
+        ]);
         $student = new Student();
         $student->name = $request->input('name');
         $student->email = $request->input('email');
@@ -157,9 +162,14 @@ class AuthController extends Controller
     {
         //
         // $data = DB::table('students')->paginate(2);
-        $data = Student::paginate(2);
+        $data = array();
+        if (Session::has('loginId')) {
+            $data = User::where('id', '=', Session::get('loginId'))->first();
+        }
 
-        return view('showdata', compact('data'));
+        $user = Student::paginate(2);
+
+        return view('showdata', compact('user', 'data'));
     }
 
     /**
@@ -171,7 +181,7 @@ class AuthController extends Controller
     public function edit($id)
     {
         //
-        $data = Student::find($id);
+        $user = Student::find($id);
         return view('edit', compact('data'));
     }
 
@@ -185,13 +195,18 @@ class AuthController extends Controller
     public function update(Request $request)
     {
         //
-        $data = Student::find($request->id);
-        $data->name = $request->name;
-        $data->email = $request->email;
-        $data->course = $request->course;
+        $request->validate([
+            'name'  => 'required',
+            'email' => 'required|email|unique:users,email',
+            'course' => 'required',
+        ]);
+        $user = Student::find($request->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->course = $request->course;
 
         if ($request->hasfile('profile_image')) {
-            $destination = 'uploads/students/' . $data->profile_image;
+            $destination = 'uploads/students/' . $user->profile_image;
             if (File::exists($destination)) {
                 File::delete($destination);
             }
@@ -199,10 +214,10 @@ class AuthController extends Controller
             $extention = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extention;
             $file->move('uploads/students/', $filename);
-            $data->profile_image = $filename;
+            $user->profile_image = $filename;
         }
 
-        $data->update();
+        $user->update();
         return redirect('showdata')->with('status', 'Student Image Updated Successfully');
     }
 
@@ -215,8 +230,8 @@ class AuthController extends Controller
     public function delete($id)
     {
         //
-        $data = Student::find($id);
-        $data->delete();
+        $user = Student::find($id);
+        $user->delete();
         return redirect('showdata');
     }
     // public function search()

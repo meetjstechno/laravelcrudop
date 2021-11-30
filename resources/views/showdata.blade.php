@@ -11,12 +11,12 @@
                         <h2>Students List
                             <a href="{{ 'dashboard' }}" style="float: right" class="btn btn-danger float-end">ADD
                                 DATA</a>
-                            <form class="form-inline my-2 my-lg-0" method="GET" action="search"
+                            {{-- <form class="form-inline my-2 my-lg-0" method="GET" action="search"
                                 style="float: right; margin-right:15px;">
                                 <input class="form-control mr-sm-2" name="query" type="search"
                                     placeholder="Search Student Data">
                                 <button class="btn btn-success" type="submit">Search</button>
-                            </form>
+                            </form> --}}
 
                         </h2>
                     </div>
@@ -37,7 +37,7 @@
                         <th>Profile Image</th>
                         <th width="180px">Action</th>
                     </tr>
-                    @foreach ($data as $row)
+                    @foreach ($user as $row)
                     <tr>
                         <td>{{ $row -> id }}</td>
                         <td>{{ $row -> name }}</td>
@@ -56,7 +56,7 @@
                     </tr>
                     @endforeach
                     <tr>
-                        <td colspan="4">{{ $data ->links() }}</td>
+                        <td colspan="4">{{ $user ->links() }}</td>
                     </tr>
                 </table>
 

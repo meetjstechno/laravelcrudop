@@ -23,8 +23,8 @@ Route::get('dashboard', [AuthController::class, 'dashboard'])->middleware('isLog
 Route::get('post-dashboard', [AuthController::class, 'create']);
 Route::post('post-dashboard', [AuthController::class, 'store']);
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('search', [AuthController::class, 'search']);
-Route::get('showdata', [AuthController::class, 'showdata'])->name('showdata');
-Route::get('edit/{id}', [AuthController::class, 'edit'])->name('edit');
+Route::get('search', [AuthController::class, 'search'])->middleware('isLoggedin');
+Route::get('showdata', [AuthController::class, 'showdata'])->name('showdata')->middleware('isLoggedin');
+Route::get('edit/{id}', [AuthController::class, 'edit'])->name('edit')->middleware('isLoggedin');
 Route::post('edit/{id}', [AuthController::class, 'update']);
 Route::get('delete/{id}', [AuthController::class, 'delete'])->name('delete');
